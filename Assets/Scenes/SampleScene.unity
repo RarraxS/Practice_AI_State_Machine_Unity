@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 330961704}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1254,6 +1254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1839459926}
+  - component: {fileID: 1839459927}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
@@ -1280,6 +1281,23 @@ Transform:
   - {fileID: 2084567992}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1839459927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839459925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3d40e2a854cad4493ace7428457b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rutina: 1
+  Clock: 0
+  Grado: 0
+  Angulo: {x: 2.84, y: 1.67, z: 1.81, w: 1.75}
+  Target: {fileID: 574302672}
 --- !u!1 &2084567991
 GameObject:
   m_ObjectHideFlags: 0
