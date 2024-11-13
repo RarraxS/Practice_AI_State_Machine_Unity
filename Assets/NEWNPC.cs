@@ -20,7 +20,6 @@ public class NEWNPC : MonoBehaviour
     void Start()
     {
         Target = GameObject.Find("Player");
-
     }
 
     // Update is called once per frame
