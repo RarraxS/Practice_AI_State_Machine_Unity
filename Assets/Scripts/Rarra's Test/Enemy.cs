@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
 
 public class Enemy : MonoBehaviour
@@ -46,10 +47,10 @@ public class Enemy : MonoBehaviour
 
         Physics.Raycast(start, direction, out RaycastHit hit, distance);
 
-        if (hit != null)
-        {
-            Debug.Log(hit.collider.name);
-        }
+        //if (hit != null)
+        //{
+        //    Debug.Log(hit.collider.name);
+        //}
 
         Debug.DrawRay(start, direction * distance, Color.black);
 
@@ -92,5 +93,23 @@ public class Enemy : MonoBehaviour
         ////Physics.Raycast(tr.position, player, out RaycastHit hit, maxWatchDistance);
         //Ray ray = new Ray(transform.position, player.transform.position);
         //Debug.DrawRay(transform.position, player.transform.position * maxWatchDistance, Color.red);
+
+
+
+
+
+
+
+
+        ////Comprueba el angulo del raycast
+        //float angle = Vector3.Angle(rayDirection, hit.point - transform.position);
+
+        //// Comprobamos si el ángulo está dentro del rango de +-45º
+        //if (angle <= angleThreshold)
+        //{
+        //    // Si está dentro del ángulo permitido, hacemos algo
+        //    Debug.Log("El Raycast está dentro del ángulo permitido.");
+        //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
+        //}
     }
 }
