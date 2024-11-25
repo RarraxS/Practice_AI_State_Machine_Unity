@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform player;
 
-    [SerializeField] private float maxWatchDistance;
+
+    [SerializeField] private float raycastHeight;
 
     private Transform tr;
 
@@ -34,16 +35,31 @@ public class Enemy : MonoBehaviour
 
     private void Watch()
     {
-        Vector3 start = tr.position + new Vector3(0, 0.2f, 0);
+        Vector3 start = tr.position + new Vector3(0, raycastHeight, 0);
 
-        Vector3 end = player.position + new Vector3(0, 0.2f, 0);
+        Vector3 end = player.position + new Vector3(0, raycastHeight, 0);
 
         Vector3 direction = (start - end).normalized;
 
         float distance = Vector3.Distance(start, end);
+        distance *= -1;
 
         Physics.Raycast(start, direction, out RaycastHit hit, distance);
-        Debug.DrawRay(tr.position, player.position * maxWatchDistance, Color.black);
+
+        if (hit != null)
+        {
+            Debug.Log(hit.collider.name);
+        }
+
+        Debug.DrawRay(start, direction * distance, Color.black);
+
+        //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
+        //{
+        //    Debug.DrawRay(start, direction * distance, Color.black);
+
+        //    Debug.Log(hit.collider.name);
+        //}
+
 
         //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
         //{
@@ -53,7 +69,7 @@ public class Enemy : MonoBehaviour
         //    // Visualización opcional del rayo en la escena
         //    Debug.DrawLine(tr.position, hit.point, Color.red);
 
-        //    Debug.DrawRay(tr.position, player.position * maxWatchDistance, Color.black);
+        //    Debug.DrawRay(start, direction * distance, Color.black);
 
         //}
 
