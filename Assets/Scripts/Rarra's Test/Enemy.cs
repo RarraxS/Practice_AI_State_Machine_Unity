@@ -40,26 +40,18 @@ public class Enemy : MonoBehaviour
 
         Vector3 end = player.position + new Vector3(0, raycastHeight, 0);
 
-        Vector3 direction = (start - end).normalized;
+        Vector3 direction = (end - start);
 
-        float distance = Vector3.Distance(start, end);
-        distance *= -1;
+        //Physics.Raycast(start, direction, out RaycastHit hit, distance);
 
-        Physics.Raycast(start, direction, out RaycastHit hit, distance);
+        Debug.DrawRay(start, direction, Color.black);
 
-        //if (hit != null)
-        //{
-        //    Debug.Log(hit.collider.name);
-        //}
+        if (Physics.Raycast(start, direction, out RaycastHit hit))
+        {
+            Debug.DrawRay(start, direction, Color.black);
 
-        Debug.DrawRay(start, direction * distance, Color.black);
-
-        //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
-        //{
-        //    Debug.DrawRay(start, direction * distance, Color.black);
-
-        //    Debug.Log(hit.collider.name);
-        //}
+            Debug.Log(hit.collider.name);
+        }
 
 
         //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
