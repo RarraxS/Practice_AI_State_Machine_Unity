@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
 
         if (Physics.Raycast(start, direction, out RaycastHit hit))
         {
-            Debug.DrawRay(start, direction, Color.black);
+            //Debug.DrawRay(start, direction, Color.black);
 
             Debug.Log(hit.collider.name);
         }
