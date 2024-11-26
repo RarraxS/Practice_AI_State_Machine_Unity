@@ -14,6 +14,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float raycastHeight;
 
+    [SerializeField] private float angleThreshold;
+
+    [SerializeField] private List<Transform> patrolWayPoints;
+    private int indexPatrol = 0;
+
     private Transform tr;
 
 
@@ -27,6 +32,8 @@ public class Enemy : MonoBehaviour
         Watch();
 
         //Move(player);
+
+        Patrol();
     }
 
     private void Move(Transform target)
@@ -52,6 +59,32 @@ public class Enemy : MonoBehaviour
 
             Debug.Log(hit.collider.name);
         }
+
+
+        float angle = Vector3.Angle(tr.forward, direction);
+
+        Debug.Log(angle);
+
+
+        if (hit.collider.name == player.name && angle <= angleThreshold && angle >= (-angleThreshold))
+        {
+            Move(player);
+        }
+
+
+
+
+        ////Comprueba el angulo del raycast
+        //float angle = Vector3.Angle(rayDirection, hit.point - transform.position);
+
+        //// Comprobamos si el ángulo está dentro del rango de +-45º
+        //if (angle <= angleThreshold)
+        //{
+        //    // Si está dentro del ángulo permitido, hacemos algo
+        //    Debug.Log("El Raycast está dentro del ángulo permitido.");
+        //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
+        //}
+
 
 
         //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
@@ -85,23 +118,20 @@ public class Enemy : MonoBehaviour
         ////Physics.Raycast(tr.position, player, out RaycastHit hit, maxWatchDistance);
         //Ray ray = new Ray(transform.position, player.transform.position);
         //Debug.DrawRay(transform.position, player.transform.position * maxWatchDistance, Color.red);
+    }
 
+    private void Patrol()
+    {
+        Move(patrolWayPoints[indexPatrol]);
 
+        if (tr.position.x == patrolWayPoints[indexPatrol].position.x && tr.position.z == patrolWayPoints[indexPatrol].position.z)
+        {
+            indexPatrol++;
 
-
-
-
-
-
-        ////Comprueba el angulo del raycast
-        //float angle = Vector3.Angle(rayDirection, hit.point - transform.position);
-
-        //// Comprobamos si el ángulo está dentro del rango de +-45º
-        //if (angle <= angleThreshold)
-        //{
-        //    // Si está dentro del ángulo permitido, hacemos algo
-        //    Debug.Log("El Raycast está dentro del ángulo permitido.");
-        //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
-        //}
+            if (indexPatrol >= patrolWayPoints.Count)
+            {
+                indexPatrol = 0;
+            }
+        }
     }
 }
