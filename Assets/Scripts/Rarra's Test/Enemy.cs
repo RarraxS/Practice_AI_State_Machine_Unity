@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,13 +13,26 @@ public class Enemy : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform player;
 
-
+    //--------------------------------------------------------------------
     [SerializeField] private float raycastHeight;
 
     [SerializeField] private float angleThreshold;
+    //--------------------------------------------------------------------
 
+
+
+    //--------------------------------------------------------------------
     [SerializeField] private List<Transform> patrolWayPoints;
     private int indexPatrol = 0;
+    //--------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------
+    [SerializeField] private List<Transform> allWayPoints;
+    [SerializeField] private int suspiciousWayPointsNumber;
+    private List<Transform> suspiciousWayPoints;
+    private int indexSuspicious = 0;
+    //--------------------------------------------------------------------
 
     private Transform tr;
 
@@ -25,6 +40,8 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         tr = GetComponent<Transform>();
+
+        suspiciousWayPoints = SetList(suspiciousWayPoints, suspiciousWayPointsNumber);
     }
 
     private void Update()
@@ -33,7 +50,9 @@ public class Enemy : MonoBehaviour
 
         //Move(player);
 
-        Patrol();
+        //Patrol();
+
+        SuspiciousPatrol();
     }
 
     private void Move(Transform target)
@@ -120,18 +139,54 @@ public class Enemy : MonoBehaviour
         //Debug.DrawRay(transform.position, player.transform.position * maxWatchDistance, Color.red);
     }
 
+    private void SuspiciousPatrol()
+    {
+        Move(suspiciousWayPoints[0]);
+
+        indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
+        if (indexSuspicious >= 1)
+        {
+            suspiciousWayPoints = RemoveWayPoint(suspiciousWayPoints, 0);
+            indexSuspicious = 0;
+        }
+    }
+
     private void Patrol()
     {
         Move(patrolWayPoints[indexPatrol]);
 
-        if (tr.position.x == patrolWayPoints[indexPatrol].position.x && tr.position.z == patrolWayPoints[indexPatrol].position.z)
-        {
-            indexPatrol++;
+        indexPatrol = NextWayPoint(patrolWayPoints, indexPatrol);
+    }
 
-            if (indexPatrol >= patrolWayPoints.Count)
+    private List<Transform> SetList(List<Transform> _list, int index)
+    {
+        _list = allWayPoints
+            .OrderBy(waypoint => Vector3.Distance(tr.position, waypoint.position))
+            .Take(index)
+            .ToList();
+
+        return _list;
+    }
+
+    private int NextWayPoint(List<Transform> _transform, int index)
+    {
+        if (tr.position.x == _transform[indexPatrol].position.x && tr.position.z == _transform[indexPatrol].position.z)
+        {
+            index++;
+
+            if (index >= _transform.Count)
             {
-                indexPatrol = 0;
+                index = 0;
             }
         }
+
+        return index;
+    }
+
+    private List<Transform> RemoveWayPoint(List<Transform> _list, int index)
+    {
+        _list.RemoveAt(index);
+
+        return _list;
     }
 }
