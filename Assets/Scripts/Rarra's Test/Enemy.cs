@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
 
         //Patrol();
 
-        SuspiciousPatrol();
+        //SuspiciousPatrol();
     }
 
     private void Move(Transform target)
@@ -60,32 +60,62 @@ public class Enemy : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
+
+    private RaycastHit ThrowRaycast(Vector3 origin, Vector3 _direction)
+    {
+        Debug.DrawRay(origin, _direction, Color.black);
+
+        if (Physics.Raycast(origin, _direction, out RaycastHit hit))
+        {
+            Debug.Log(hit.collider.name);
+            return hit;
+        }
+
+        return new RaycastHit();
+    }
+
+    private float CalculateAngle(Vector3 param1, Vector3 param2)
+    {
+        float angle = Vector3.Angle(param1, param2);
+
+        Debug.Log(angle);
+
+        return angle;
+    }
+
+
     private void Watch()
     {
         Vector3 start = tr.position + new Vector3(0, raycastHeight, 0);
-
         Vector3 end = player.position + new Vector3(0, raycastHeight, 0);
 
         Vector3 direction = (end - start);
 
-        //Physics.Raycast(start, direction, out RaycastHit hit, distance);
-
-        Debug.DrawRay(start, direction, Color.black);
-
-        if (Physics.Raycast(start, direction, out RaycastHit hit))
-        {
-            //Debug.DrawRay(start, direction, Color.black);
-
-            Debug.Log(hit.collider.name);
-        }
+        RaycastHit hit = ThrowRaycast(start, direction);
 
 
-        float angle = Vector3.Angle(tr.forward, direction);
+        //Vector3 localForward = transform.InverseTransformDirection(transform.forward);
+        Vector3 localForward = new Vector3(0, 0, 1);
 
-        Debug.Log(angle);
+        Debug.DrawRay(start, localForward, Color.black);
 
 
-        if (hit.collider.name == player.name && angle <= angleThreshold && angle >= (-angleThreshold))
+        float angle = CalculateAngle(tr.forward, direction);
+
+
+
+
+        //float angle = Vector3.Angle(tr.forward, direction);
+
+        //Debug.Log(angle);
+
+
+        //if (hit.collider.name == player.name && angle < angleThreshold)
+        //{
+        //    Move(player);
+        //}
+
+        if (angle < angleThreshold)
         {
             Move(player);
         }
@@ -103,40 +133,6 @@ public class Enemy : MonoBehaviour
         //    Debug.Log("El Raycast está dentro del ángulo permitido.");
         //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
         //}
-
-
-
-        //if (Physics.Raycast(start, direction, out RaycastHit hit, distance))
-        //{
-        //    // Si el rayo golpea algo
-        //    Debug.Log($"El rayo impactó con: {hit.collider.name}");
-
-        //    // Visualización opcional del rayo en la escena
-        //    Debug.DrawLine(tr.position, hit.point, Color.red);
-
-        //    Debug.DrawRay(start, direction * distance, Color.black);
-
-        //}
-
-
-
-
-        //Physics.Raycast(tr.position, direction, out RaycastHit hit, distance);
-        //Debug.DrawLine(tr.position, hit.point, Color.red);
-
-
-        //Vector3 origen = transform.position;
-        //Vector3 direccion = Vector3.forward;
-        //float distancia = 12f;
-
-        //RaycastHit2D hit = Physics2D.Raycast(origen, direccion, distancia);
-        //Debug.DrawRay(origen, direccion * distancia, Color.red);
-
-
-
-        ////Physics.Raycast(tr.position, player, out RaycastHit hit, maxWatchDistance);
-        //Ray ray = new Ray(transform.position, player.transform.position);
-        //Debug.DrawRay(transform.position, player.transform.position * maxWatchDistance, Color.red);
     }
 
     private void SuspiciousPatrol()
