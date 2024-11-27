@@ -5,13 +5,16 @@ using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.U2D;
 using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
 
 public class Enemy : MonoBehaviour
 {
+    //--------------------------------------------------------------------
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform player;
+    //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
     [SerializeField] private float raycastHeight;
@@ -19,13 +22,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float angleThreshold;
     //--------------------------------------------------------------------
 
-
-
     //--------------------------------------------------------------------
     [SerializeField] private List<Transform> patrolWayPoints;
     private int indexPatrol = 0;
     //--------------------------------------------------------------------
-
 
     //--------------------------------------------------------------------
     [SerializeField] private List<Transform> allWayPoints;
@@ -46,6 +46,53 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        // 1 -- -- -- - - - -- -- --
+
+        // First we watch
+
+        // If it sees the player call Move(player.position)
+
+        // If lost the player call SetList
+        // Then call SuspiciousPatrol()
+
+        //If SuspiciousPatrol List is empty or if wasn't watching the player, then patrol
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // 2 -- -- -- - - - -- -- --
+
+        // First we watch
+
+        // If player is unseen and not SuspiciousPatrol() then patrols
+
+        // If player spoted then call Move(player.position)
+
+        // If player is unseen this frame call SuspiciousPatrol()
+
+
+
+
+
+
+
+
+
+
+
+
         Watch();
 
         //Move(player);
@@ -67,7 +114,7 @@ public class Enemy : MonoBehaviour
 
         if (Physics.Raycast(origin, _direction, out RaycastHit hit))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
             return hit;
         }
 
@@ -78,7 +125,7 @@ public class Enemy : MonoBehaviour
     {
         float angle = Vector3.Angle(param1, param2);
 
-        Debug.Log(angle);
+        //Debug.Log(angle);
 
         return angle;
     }
@@ -117,7 +164,14 @@ public class Enemy : MonoBehaviour
 
         if (angle < angleThreshold)
         {
+            Debug.Log("Angulo: " + angle + " angulo limite: " + angleThreshold);
             Move(player);
+
+        }
+
+        else
+        {
+            agent.Stop(); ;
         }
 
 
