@@ -9,7 +9,7 @@ using UnityEngine.U2D;
 using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     //--------------------------------------------------------------------
     [SerializeField] private NavMeshAgent agent;
@@ -35,17 +35,25 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------
 
     private Transform tr;
+    private State _state;
 
 
     private void Start()
     {
         tr = GetComponent<Transform>();
 
-        suspiciousWayPoints = SetList(suspiciousWayPoints, suspiciousWayPointsNumber);
+        suspiciousWayPoints = GetSuspiciousPointFrom(suspiciousWayPointsNumber);
+        InvokeRepeating(nameof(Update2), 0.0f, 0.2f);
+        SetState(new PatrolState(this));
     }
 
-    private void Update()
+    private void Update2()
     {
+        this._state.Perceive();
+        this._state.Think();
+        this._state.Act();
+        //Esta función debería acabar aquí
+
         // 1 -- -- -- - - - -- -- --
 
         // First we watch
@@ -102,6 +110,11 @@ public class Enemy : MonoBehaviour
         //SuspiciousPatrol();
     }
 
+    public void SetState(State state)
+    {
+        this._state = state;
+    }
+
     private void Move(Transform target)
     {
         agent.SetDestination(target.position);
@@ -112,12 +125,9 @@ public class Enemy : MonoBehaviour
     {
         Debug.DrawRay(origin, _direction, Color.black);
 
-        if (Physics.Raycast(origin, _direction, out RaycastHit hit))
-        {
-            //Debug.Log(hit.collider.name);
+        if (Physics.Raycast(origin, _direction, out RaycastHit hit))         
             return hit;
-        }
-
+        
         return new RaycastHit();
     }
 
@@ -171,7 +181,7 @@ public class Enemy : MonoBehaviour
 
         else
         {
-            agent.Stop(); ;
+            //agent.Stop();
         }
 
 
@@ -196,7 +206,7 @@ public class Enemy : MonoBehaviour
         indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
         if (indexSuspicious >= 1)
         {
-            suspiciousWayPoints = RemoveWayPoint(suspiciousWayPoints, 0);
+            suspiciousWayPoints.RemoveAt(0);
             indexSuspicious = 0;
         }
     }
@@ -208,14 +218,12 @@ public class Enemy : MonoBehaviour
         indexPatrol = NextWayPoint(patrolWayPoints, indexPatrol);
     }
 
-    private List<Transform> SetList(List<Transform> _list, int index)
+    private List<Transform> GetSuspiciousPointFrom(int index)
     {
-        _list = allWayPoints
+        return allWayPoints
             .OrderBy(waypoint => Vector3.Distance(tr.position, waypoint.position))
             .Take(index)
             .ToList();
-
-        return _list;
     }
 
     private int NextWayPoint(List<Transform> _transform, int index)
@@ -231,12 +239,5 @@ public class Enemy : MonoBehaviour
         }
 
         return index;
-    }
-
-    private List<Transform> RemoveWayPoint(List<Transform> _list, int index)
-    {
-        _list.RemoveAt(index);
-
-        return _list;
     }
 }

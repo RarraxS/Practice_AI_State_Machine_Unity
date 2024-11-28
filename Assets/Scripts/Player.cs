@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
     private Transform tr;
 
-    void Start()
+    void Awake()
     {
         tr = GetComponent<Transform>();
     }
@@ -19,38 +19,29 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 direction = new Vector3(0, 0, 0);
+        Vector3 direction = MovementVector();
+        tr.position += direction * speed;
+        tr.rotation = Quaternion.Euler(0, Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg, 0);
+    }
+
+    private static Vector3 MovementVector()
+    {
+        Vector3 direction = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))
-        {
             direction += Vector3.forward;
-        }
 
         if (Input.GetKey(KeyCode.S))
-        {
             direction += Vector3.back;
-        }
 
         if (Input.GetKey(KeyCode.A))
-        {
             direction += Vector3.left;
-        }
 
         if (Input.GetKey(KeyCode.D))
-        {
             direction += Vector3.right;
-        }
 
         direction.Normalize();
 
-        direction *= speed;
-
-        tr.position += direction;
-
-
-
-
-        tr.rotation = Quaternion.Euler(0, Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg, 0);
-
+        return direction;
     }
 }
