@@ -1,25 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.U2D;
-using UnityEngine.UIElements;
-using static UnityEngine.UI.Image;
 
 public abstract class Enemy : MonoBehaviour
 {
     //--------------------------------------------------------------------
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform player;
+    public Transform player;
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
-    [SerializeField] private float raycastHeight;
+    public float raycastHeight;
 
-    [SerializeField] private float angleThreshold;
+    public float angleThreshold;
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
@@ -34,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
     private int indexSuspicious = 0;
     //--------------------------------------------------------------------
 
-    private Transform tr;
+    public Transform tr;
     private State _state;
 
 
@@ -69,17 +63,6 @@ public abstract class Enemy : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         // 2 -- -- -- - - - -- -- --
 
         // First we watch
@@ -89,15 +72,6 @@ public abstract class Enemy : MonoBehaviour
         // If player spoted then call Move(player.position)
 
         // If player is unseen this frame call SuspiciousPatrol()
-
-
-
-
-
-
-
-
-
 
 
 
@@ -176,7 +150,6 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.Log("Angulo: " + angle + " angulo limite: " + angleThreshold);
             Move(player);
-
         }
 
         else

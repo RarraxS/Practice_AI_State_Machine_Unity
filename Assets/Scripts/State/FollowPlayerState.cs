@@ -10,4 +10,14 @@ public class FollowPlayerState : State
     {
 
     }
+
+    public override void Act()
+    {
+
+    }
+
+    public override void Think()
+    {
+
+    }
 }
