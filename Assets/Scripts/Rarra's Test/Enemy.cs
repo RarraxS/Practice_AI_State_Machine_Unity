@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public abstract class Enemy : MonoBehaviour
 {
     //--------------------------------------------------------------------
-    [SerializeField] private NavMeshAgent agent;
+    public NavMeshAgent agent;
     public Transform player;
     //--------------------------------------------------------------------
 
@@ -46,6 +46,8 @@ public abstract class Enemy : MonoBehaviour
         this._state.Perceive();
         this._state.Think();
         this._state.Act();
+
+
         //Esta función debería acabar aquí
 
         // 1 -- -- -- - - - -- -- --
