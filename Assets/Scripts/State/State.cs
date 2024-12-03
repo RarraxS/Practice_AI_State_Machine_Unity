@@ -16,7 +16,7 @@ public abstract class State
 
     public void Perceive()
     {
-        _enemy.SetState(new PatrolState(this));
+        _enemy.SetState(new PatrolState(this._enemy));
         //this._canSeePlayer = 
     }
     //Perceive DE PATRULLAR STATE -> HA VISTO AL JUGADOR? (LO GUARDA EN UN BOOL)

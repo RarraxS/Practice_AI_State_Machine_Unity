@@ -17,8 +17,8 @@ public abstract class Enemy : MonoBehaviour
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
-    [SerializeField] private List<Transform> patrolWayPoints;
-    private int indexPatrol = 0;
+    public List<Transform> patrolWayPoints;
+    //private int indexPatrol = 0;
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
@@ -64,7 +64,6 @@ public abstract class Enemy : MonoBehaviour
 
 
 
-
         // 2 -- -- -- - - - -- -- --
 
         // First we watch
@@ -77,7 +76,7 @@ public abstract class Enemy : MonoBehaviour
 
 
 
-        Watch();
+        //Watch();
 
         //Move(player);
 
@@ -97,82 +96,82 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    private RaycastHit ThrowRaycast(Vector3 origin, Vector3 _direction)
-    {
-        Debug.DrawRay(origin, _direction, Color.black);
+    //private RaycastHit ThrowRaycast(Vector3 origin, Vector3 _direction)
+    //{
+    //    Debug.DrawRay(origin, _direction, Color.black);
 
-        if (Physics.Raycast(origin, _direction, out RaycastHit hit))         
-            return hit;
-        
-        return new RaycastHit();
-    }
+    //    if (Physics.Raycast(origin, _direction, out RaycastHit hit))         
+    //        return hit;
 
-    private float CalculateAngle(Vector3 param1, Vector3 param2)
-    {
-        float angle = Vector3.Angle(param1, param2);
+    //    return new RaycastHit();
+    //}
 
-        //Debug.Log(angle);
+    //private float CalculateAngle(Vector3 param1, Vector3 param2)
+    //{
+    //    float angle = Vector3.Angle(param1, param2);
 
-        return angle;
-    }
+    //    //Debug.Log(angle);
 
-
-    private void Watch()
-    {
-        Vector3 start = tr.position + new Vector3(0, raycastHeight, 0);
-        Vector3 end = player.position + new Vector3(0, raycastHeight, 0);
-
-        Vector3 direction = (end - start);
-
-        RaycastHit hit = ThrowRaycast(start, direction);
+    //    return angle;
+    //}
 
 
-        //Vector3 localForward = transform.InverseTransformDirection(transform.forward);
-        Vector3 localForward = new Vector3(0, 0, 1);
+    //private void Watch()
+    //{
+    //    Vector3 start = tr.position + new Vector3(0, raycastHeight, 0);
+    //    Vector3 end = player.position + new Vector3(0, raycastHeight, 0);
 
-        Debug.DrawRay(start, localForward, Color.black);
+    //    Vector3 direction = (end - start);
 
-
-        float angle = CalculateAngle(tr.forward, direction);
-
-
-
-
-        //float angle = Vector3.Angle(tr.forward, direction);
-
-        //Debug.Log(angle);
+    //    RaycastHit hit = ThrowRaycast(start, direction);
 
 
-        //if (hit.collider.name == player.name && angle < angleThreshold)
-        //{
-        //    Move(player);
-        //}
+    //    //Vector3 localForward = transform.InverseTransformDirection(transform.forward);
+    //    Vector3 localForward = new Vector3(0, 0, 1);
 
-        if (angle < angleThreshold)
-        {
-            Debug.Log("Angulo: " + angle + " angulo limite: " + angleThreshold);
-            Move(player);
-        }
+    //    Debug.DrawRay(start, localForward, Color.black);
 
-        else
-        {
-            //agent.Stop();
-        }
+
+    //    float angle = CalculateAngle(tr.forward, direction);
 
 
 
 
-        ////Comprueba el angulo del raycast
-        //float angle = Vector3.Angle(rayDirection, hit.point - transform.position);
+    //    //float angle = Vector3.Angle(tr.forward, direction);
 
-        //// Comprobamos si el ángulo está dentro del rango de +-45º
-        //if (angle <= angleThreshold)
-        //{
-        //    // Si está dentro del ángulo permitido, hacemos algo
-        //    Debug.Log("El Raycast está dentro del ángulo permitido.");
-        //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
-        //}
-    }
+    //    //Debug.Log(angle);
+
+
+    //    //if (hit.collider.name == player.name && angle < angleThreshold)
+    //    //{
+    //    //    Move(player);
+    //    //}
+
+    //    if (angle < angleThreshold)
+    //    {
+    //        Debug.Log("Angulo: " + angle + " angulo limite: " + angleThreshold);
+    //        Move(player);
+    //    }
+
+    //    else
+    //    {
+    //        //agent.Stop();
+    //    }
+
+
+
+
+    //    ////Comprueba el angulo del raycast
+    //    //float angle = Vector3.Angle(rayDirection, hit.point - transform.position);
+
+    //    //// Comprobamos si el ángulo está dentro del rango de +-45º
+    //    //if (angle <= angleThreshold)
+    //    //{
+    //    //    // Si está dentro del ángulo permitido, hacemos algo
+    //    //    Debug.Log("El Raycast está dentro del ángulo permitido.");
+    //    //    // Aquí puedes agregar lo que quieres hacer cuando esté dentro del ángulo
+    //    //}
+    //}
 
     private void SuspiciousPatrol()
     {
@@ -186,12 +185,12 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    private void Patrol()
-    {
-        Move(patrolWayPoints[indexPatrol]);
+    //private void Patrol()
+    //{
+    //    Move(patrolWayPoints[indexPatrol]);
 
-        indexPatrol = NextWayPoint(patrolWayPoints, indexPatrol);
-    }
+    //    indexPatrol = NextWayPoint(patrolWayPoints, indexPatrol);
+    //}
 
     private List<Transform> GetSuspiciousPointFrom(int index)
     {
@@ -203,7 +202,7 @@ public abstract class Enemy : MonoBehaviour
 
     private int NextWayPoint(List<Transform> _transform, int index)
     {
-        if (tr.position.x == _transform[indexPatrol].position.x && tr.position.z == _transform[indexPatrol].position.z)
+        if (tr.position.x == _transform[index].position.x && tr.position.z == _transform[index].position.z)
         {
             index++;
 
