@@ -91,7 +91,7 @@ public abstract class State
 
         if (angle < _enemy.angleThreshold)
         {
-            Debug.Log("Angulo: " + angle + " angulo limite: " + _enemy.angleThreshold);
+            //Debug.Log("Angulo: " + angle + " angulo limite: " + _enemy.angleThreshold);
             _canSeePlayer = true;
         }
 

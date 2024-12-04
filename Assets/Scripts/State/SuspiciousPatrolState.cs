@@ -27,19 +27,26 @@ public class SuspiciousPatrolState : State
         if (!activated)
             suspiciousWayPoints = GetSuspiciousPointFrom(_enemy.suspiciousWayPointsNumber);
 
+        //for (int i = 0; i <= suspiciousWayPoints.Count; i++)
+        //    Debug.Log(suspiciousWayPoints[i]);
+        
+        //Debug.Log("WP 1: " + suspiciousWayPoints[0].name);
+        //Debug.Log("WP 2: " + suspiciousWayPoints[1].name);
+        //Debug.Log("WP 3: " + suspiciousWayPoints[2].name);
+        //Debug.Log("WP 4: " + suspiciousWayPoints[3].name);
+
+
+        Debug.Log("Index: " + indexSuspicious);
+
+
         SuspiciousPatrol();
     }
 
     private void SuspiciousPatrol()
     {
-        Move(suspiciousWayPoints[0]);
+        Move(suspiciousWayPoints[indexSuspicious]);
 
         indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
-        if (indexSuspicious >= 1)
-        {
-            suspiciousWayPoints.RemoveAt(0);
-            indexSuspicious = 0;
-        }
     }
 
     private List<Transform> GetSuspiciousPointFrom(int index)

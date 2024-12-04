@@ -37,15 +37,17 @@ public class Enemy : MonoBehaviour
         tr = GetComponent<Transform>();
 
         //suspiciousWayPoints = GetSuspiciousPointFrom(suspiciousWayPointsNumber);
-        InvokeRepeating(nameof(Update2), 0.0f, 0.2f);
+        InvokeRepeating(nameof(PerformAction), 0.0f, 0.2f);
         SetState(new PatrolState(this));
     }
 
-    private void Update2()
+    private void PerformAction()
     {
         this._state.Perceive();
         this._state.Think();
         this._state.Act();
+
+        Debug.Log(_state);
     }
 
     public void SetState(State state)
