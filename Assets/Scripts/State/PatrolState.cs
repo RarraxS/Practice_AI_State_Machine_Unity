@@ -10,8 +10,8 @@ public class PatrolState : State
     //Think DE PATRULLAR STATE -> si ve al jugador -> debe cambiar al estado seguir 
     public override void Think()
     {
-        if(this._canSeePlayer)
-            this._enemy.SetState(new FollowPlayerState(this._enemy));
+        if(_canSeePlayer)
+            _enemy.SetState(new FollowPlayerState(_enemy));
     }
 
     public override void Act()

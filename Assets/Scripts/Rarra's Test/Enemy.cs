@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //--------------------------------------------------------------------
     public NavMeshAgent agent;
@@ -22,10 +22,10 @@ public abstract class Enemy : MonoBehaviour
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
-    [SerializeField] private List<Transform> allWayPoints;
-    [SerializeField] private int suspiciousWayPointsNumber;
-    private List<Transform> suspiciousWayPoints;
-    private int indexSuspicious = 0;
+    public List<Transform> allWayPoints;
+    public int suspiciousWayPointsNumber;
+    //private List<Transform> suspiciousWayPoints;
+    //private int indexSuspicious = 0;
     //--------------------------------------------------------------------
 
     public Transform tr;
@@ -36,7 +36,7 @@ public abstract class Enemy : MonoBehaviour
     {
         tr = GetComponent<Transform>();
 
-        suspiciousWayPoints = GetSuspiciousPointFrom(suspiciousWayPointsNumber);
+        //suspiciousWayPoints = GetSuspiciousPointFrom(suspiciousWayPointsNumber);
         InvokeRepeating(nameof(Update2), 0.0f, 0.2f);
         SetState(new PatrolState(this));
     }
@@ -46,43 +46,6 @@ public abstract class Enemy : MonoBehaviour
         this._state.Perceive();
         this._state.Think();
         this._state.Act();
-
-
-        //Esta función debería acabar aquí
-
-        // 1 -- -- -- - - - -- -- --
-
-        // First we watch
-
-        // If it sees the player call Move(player.position)
-
-        // If lost the player call SetList
-        // Then call SuspiciousPatrol()
-
-        //If SuspiciousPatrol List is empty or if wasn't watching the player, then patrol
-
-
-
-
-        // 2 -- -- -- - - - -- -- --
-
-        // First we watch
-
-        // If player is unseen and not SuspiciousPatrol() then patrols
-
-        // If player spoted then call Move(player.position)
-
-        // If player is unseen this frame call SuspiciousPatrol()
-
-
-
-        //Watch();
-
-        //Move(player);
-
-        //Patrol();
-
-        //SuspiciousPatrol();
     }
 
     public void SetState(State state)
@@ -173,17 +136,17 @@ public abstract class Enemy : MonoBehaviour
     //    //}
     //}
 
-    private void SuspiciousPatrol()
-    {
-        Move(suspiciousWayPoints[0]);
+    //private void SuspiciousPatrol()
+    //{
+    //    Move(suspiciousWayPoints[0]);
 
-        indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
-        if (indexSuspicious >= 1)
-        {
-            suspiciousWayPoints.RemoveAt(0);
-            indexSuspicious = 0;
-        }
-    }
+    //    indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
+    //    if (indexSuspicious >= 1)
+    //    {
+    //        suspiciousWayPoints.RemoveAt(0);
+    //        indexSuspicious = 0;
+    //    }
+    //}
 
     //private void Patrol()
     //{

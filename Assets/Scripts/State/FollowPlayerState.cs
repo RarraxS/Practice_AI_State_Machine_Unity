@@ -15,6 +15,9 @@ public class FollowPlayerState : State
     public override void Think()
     {
         // Si pierde al jugador de vista pasa a patrulla en alerta
+
+        if (!_canSeePlayer)
+            _enemy.SetState(new SuspiciousPatrolState(_enemy));
     }
 
     public override void Act()

@@ -1750,6 +1750,7 @@ MonoBehaviour:
   - {fileID: 1903582146}
   - {fileID: 664392742}
   suspiciousWayPointsNumber: 4
+  tr: {fileID: 1839459926}
 --- !u!195 &1839459930
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1942,7 +1943,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068783673}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3d105e3376c92a468fe4b05fc2f404d, type: 3}
   m_Name: 
