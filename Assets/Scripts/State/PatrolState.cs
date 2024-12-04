@@ -28,7 +28,7 @@ public class PatrolState : State
 
     private void Move(Transform target)
     {
-        _enemy.agent.SetDestination(target.position);
+        _enemy.NavMeshAgent.SetDestination(target.position);
     }
 
     private int NextWayPoint(List<Transform> _transform, int index)
