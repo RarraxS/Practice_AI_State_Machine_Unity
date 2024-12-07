@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
         this._state.Think();
         this._state.Act();
 
-        Debug.Log(_state);
+        //Debug.Log(_state);
     }
 
     public void SetState(State state)

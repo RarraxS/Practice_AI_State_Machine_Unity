@@ -41,8 +41,8 @@ public class SuspiciousPatrolState : State
         //Debug.Log("WP 3: " + suspiciousWayPoints[2].name);
         //Debug.Log("WP 4: " + suspiciousWayPoints[3].name);
 
-        Debug.Log("Following: " + suspiciousWayPoints[0]);
-        Debug.Log("Index: " + indexSuspicious);
+        //Debug.Log("Following: " + suspiciousWayPoints[0]);
+        //Debug.Log("Index: " + indexSuspicious);
 
 
         SuspiciousPatrol();
@@ -51,6 +51,8 @@ public class SuspiciousPatrolState : State
     private void SuspiciousPatrol()
     {
         Move(suspiciousWayPoints[indexSuspicious]);
+
+        AreFloatsApproximatelyEqual(_enemy.tr.position.x, suspiciousWayPoints[indexSuspicious].position.x);
 
         indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
     }
@@ -65,35 +67,28 @@ public class SuspiciousPatrolState : State
             .ToList();
     }
 
-    private int NextWayPoint(List<Transform> _transform, int index)
-    {
-        //if (AreFloatsApproximatelyEqual(_enemy.tr.position.x, _transform[index].position.x))
-        if (_enemy.tr.position.x == _transform[index].position.x && _enemy.tr.position.z == _transform[index].position.z)
-        {
-            index++;
+    //private int NextWayPoint(List<Transform> _transform, int index)
+    //{
+    //    Debug.Log(HasReachedDestination());
+    //    if (//AreFloatsApproximatelyEqual(_enemy.tr.position.x, _transform[index].position.x) &&
+    //        //AreFloatsApproximatelyEqual(_enemy.tr.position.z, _transform[index].position.z) &&
+    //        HasReachedDestination())
+    //    {
+    //        index++;
 
-            if (index >= _transform.Count)
-            {
-                index = 0;
-            }
-        }
+    //        if (index >= _transform.Count)
+    //        {
+    //            index = 0;
+    //        }
+    //    }
 
-        return index;
-    }
+    //    return index;
+    //}
 
-    private void Move(Transform target)
-    {
-        _enemy.NavMeshAgent.SetDestination(target.position);
-
-
-    }
-
-    public static bool AreFloatsApproximatelyEqual(float a, float b, float epsilon = 0.0001f) 
+    public static bool AreFloatsApproximatelyEqual(float a, float b, float epsilon = 0.001f) 
     {
         return Math.Abs(a - b) < epsilon * Math.Max(1.0f, Math.Max(Math.Abs(a), Math.Abs(b)));
     }
-
-
 
 
 

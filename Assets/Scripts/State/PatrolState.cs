@@ -26,23 +26,18 @@ public class PatrolState : State
         indexPatrol = NextWayPoint(_enemy.patrolWayPoints, indexPatrol);
     }
 
-    private void Move(Transform target)
-    {
-        _enemy.NavMeshAgent.SetDestination(target.position);
-    }
+    //private int NextWayPoint(List<Transform> _transform, int index)
+    //{
+    //    if (_enemy.tr.position.x == _transform[index].position.x && _enemy.tr.position.z == _transform[index].position.z)
+    //    {
+    //        index++;
 
-    private int NextWayPoint(List<Transform> _transform, int index)
-    {
-        if (_enemy.tr.position.x == _transform[index].position.x && _enemy.tr.position.z == _transform[index].position.z)
-        {
-            index++;
+    //        if (index >= _transform.Count)
+    //        {
+    //            index = 0;
+    //        }
+    //    }
 
-            if (index >= _transform.Count)
-            {
-                index = 0;
-            }
-        }
-
-        return index;
-    }
+    //    return index;
+    //}
 }

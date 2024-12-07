@@ -24,9 +24,4 @@ public class FollowPlayerState : State
     {
         Move(_enemy.player);
     }
-
-    private void Move(Transform target)
-    {
-        _enemy.NavMeshAgent.SetDestination(target.position);
-    }
 }

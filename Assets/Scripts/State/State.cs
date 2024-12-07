@@ -77,19 +77,9 @@ public abstract class State
         float angle = CalculateAngle(_enemy.tr.forward, direction);
 
 
+        //Debug.Log("Collided obj: " + hit.collider.name + ",player name: " + _enemy.player.name);
 
-
-        //float angle = Vector3.Angle(tr.forward, direction);
-
-        //Debug.Log(angle);
-
-
-        //if (hit.collider.name == player.name && angle < angleThreshold)
-        //{
-        //    Move(player);
-        //}
-
-        if (angle < _enemy.angleThreshold)
+        if ((angle < _enemy.angleThreshold) && (hit.collider.name == _enemy.player.name))
         {
             //Debug.Log("Angulo: " + angle + " angulo limite: " + _enemy.angleThreshold);
             _canSeePlayer = true;
@@ -98,11 +88,41 @@ public abstract class State
         else
         {
             _canSeePlayer = false;
-
-
-            //agent.Stop();
         }
+
+        //Debug.Log(_canSeePlayer);
     }
 
     // Meter el Move protected
+    protected void Move(Transform target)
+    {
+        _enemy.NavMeshAgent.SetDestination(target.position);
+    }
+
+    protected int NextWayPoint(List<Transform> _transform, int index)
+    {
+        Debug.Log(HasReachedDestination());
+        if (//AreFloatsApproximatelyEqual(_enemy.tr.position.x, _transform[index].position.x) &&
+            //AreFloatsApproximatelyEqual(_enemy.tr.position.z, _transform[index].position.z) &&
+            HasReachedDestination())
+        {
+            index++;
+
+            if (index >= _transform.Count)
+            {
+                index = 0;
+            }
+        }
+
+        return index;
+    }
+
+    protected bool HasReachedDestination()
+    {
+        var navmeshAgent = _enemy.NavMeshAgent;
+        if (!navmeshAgent.pathPending)
+            return navmeshAgent.remainingDistance <= navmeshAgent.stoppingDistance;
+
+        return false;
+    }
 }
