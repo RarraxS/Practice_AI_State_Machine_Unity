@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System;
-using UnityEngine.AI;
 
 public class SuspiciousPatrolState : State
 {
@@ -11,12 +9,9 @@ public class SuspiciousPatrolState : State
 
     public SuspiciousPatrolState(Enemy enemy) : base(enemy) 
     {
-        //Hacer aqui el coger los suspicious WP
         suspiciousWayPoints = GetSuspiciousPointFrom(_enemy.SuspiciousWayPointsNumber);
     }
 
-    //Think DE PATRULLAR SOSPECHOSAMENTE STATE -> si ve al jugador -> debe cambiar al estado seguir
-    //                                         -> si se acaban los waypoints -> debe cambiar al estado patrulla
     public override void Think()
     {
         if (_canSeePlayer)
@@ -28,28 +23,12 @@ public class SuspiciousPatrolState : State
 
     public override void Act()
     {
-        //for (int i = 0; i <= suspiciousWayPoints.Count; i++)
-        //    Debug.Log(suspiciousWayPoints[i]);
-
-        //Debug.Log("WP 1: " + suspiciousWayPoints[0].name);
-        //Debug.Log("WP 2: " + suspiciousWayPoints[1].name);
-        //Debug.Log("WP 3: " + suspiciousWayPoints[2].name);
-        //Debug.Log("WP 4: " + suspiciousWayPoints[3].name);
-
-        //Debug.Log("Following: " + suspiciousWayPoints[0]);
-        //Debug.Log("Index: " + indexSuspicious);
-
-        Debug.Log((indexSuspicious + 1) + " / " + suspiciousWayPoints.Count);
-
-
         SuspiciousPatrol();
     }
 
     private void SuspiciousPatrol()
     {
         Move(suspiciousWayPoints[indexSuspicious]);
-
-        AreFloatsApproximatelyEqual(_enemy.Tr.position.x, suspiciousWayPoints[indexSuspicious].position.x);
 
         indexSuspicious = NextWayPoint(suspiciousWayPoints, indexSuspicious);
     }
@@ -60,39 +39,5 @@ public class SuspiciousPatrolState : State
             .OrderBy(waypoint => Vector3.Distance(_enemy.Tr.position, waypoint.position))
             .Take(index)
             .ToList();
-    }
-
-    //private int NextWayPoint(List<Transform> _transform, int index)
-    //{
-    //    Debug.Log(HasReachedDestination());
-    //    if (//AreFloatsApproximatelyEqual(_enemy.tr.position.x, _transform[index].position.x) &&
-    //        //AreFloatsApproximatelyEqual(_enemy.tr.position.z, _transform[index].position.z) &&
-    //        HasReachedDestination())
-    //    {
-    //        index++;
-
-    //        if (index >= _transform.Count)
-    //        {
-    //            index = 0;
-    //        }
-    //    }
-
-    //    return index;
-    //}
-
-    public static bool AreFloatsApproximatelyEqual(float a, float b, float epsilon = 0.001f) 
-    {
-        return Math.Abs(a - b) < epsilon * Math.Max(1.0f, Math.Max(Math.Abs(a), Math.Abs(b)));
-    }
-
-
-
-    private bool HasReachedDestination()
-    {
-        var navmeshAgent = _enemy.NavMeshAgent;
-        if (!navmeshAgent.pathPending)
-            return navmeshAgent.remainingDistance <= navmeshAgent.stoppingDistance;
-        
-            return false;
     }
 }

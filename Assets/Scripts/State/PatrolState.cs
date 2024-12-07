@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public class PatrolState : State
+﻿public class PatrolState : State
 {
     private int indexPatrol = 0;
 
     public PatrolState(Enemy enemy) : base(enemy) { }
 
-    //Think DE PATRULLAR STATE -> si ve al jugador -> debe cambiar al estado seguir 
     public override void Think()
     {
         if(_canSeePlayer)
@@ -25,19 +21,4 @@ public class PatrolState : State
 
         indexPatrol = NextWayPoint(_enemy.PatrolWayPoints, indexPatrol);
     }
-
-    //private int NextWayPoint(List<Transform> _transform, int index)
-    //{
-    //    if (_enemy.tr.position.x == _transform[index].position.x && _enemy.tr.position.z == _transform[index].position.z)
-    //    {
-    //        index++;
-
-    //        if (index >= _transform.Count)
-    //        {
-    //            index = 0;
-    //        }
-    //    }
-
-    //    return index;
-    //}
 }
