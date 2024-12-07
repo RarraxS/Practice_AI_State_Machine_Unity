@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -39,6 +38,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
             direction += Vector3.right;
+
+        direction.y = 0;
 
         direction.Normalize();
 

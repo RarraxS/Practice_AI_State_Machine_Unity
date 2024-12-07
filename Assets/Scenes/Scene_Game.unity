@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemigo 3
       objectReference: {fileID: 0}
+    - target: {fileID: 518044927643120584, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 895351544070311390, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.64
@@ -605,6 +609,10 @@ PrefabInstance:
     - target: {fileID: 518044927643120584, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
       propertyPath: m_Name
       value: Enemigo 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 518044927643120584, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895351544070311390, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1459,6 +1467,10 @@ PrefabInstance:
     - target: {fileID: 518044927643120584, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
       propertyPath: m_Name
       value: Enemigo 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 518044927643120584, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 895351544070311390, guid: a022bbc58161df042bc39a9cc9085d45, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3317,7 +3329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 220910046074339681, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029999971
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 220910046074339681, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3350,6 +3362,18 @@ PrefabInstance:
     - target: {fileID: 220910046074339681, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780673475933694096, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780673475933694096, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780673475933694096, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5792139164359636855, guid: 636096048fedd9d408d329d7e0f6eb7b, type: 3}
       propertyPath: m_Name

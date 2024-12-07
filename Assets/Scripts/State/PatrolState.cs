@@ -21,9 +21,9 @@ public class PatrolState : State
 
     private void Patrol()
     {
-        Move(_enemy.patrolWayPoints[indexPatrol]);
+        Move(_enemy.PatrolWayPoints[indexPatrol]);
 
-        indexPatrol = NextWayPoint(_enemy.patrolWayPoints, indexPatrol);
+        indexPatrol = NextWayPoint(_enemy.PatrolWayPoints, indexPatrol);
     }
 
     //private int NextWayPoint(List<Transform> _transform, int index)

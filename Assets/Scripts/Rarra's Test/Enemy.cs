@@ -7,32 +7,36 @@ public class Enemy : MonoBehaviour
 {
     //--------------------------------------------------------------------
     [SerializeField] private NavMeshAgent agent;
-    public Transform player;
+    [SerializeField] private Transform player;
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
-    public float raycastHeight;
+    [SerializeField] private float raycastHeight;
 
-    public float angleThreshold;
-    //--------------------------------------------------------------------
-
-    //--------------------------------------------------------------------
-    public List<Transform> patrolWayPoints;
-    //private int indexPatrol = 0;
+    [SerializeField] private float angleThreshold;
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
-    public List<Transform> allWayPoints;
-    public int suspiciousWayPointsNumber;
-    //private List<Transform> suspiciousWayPoints;
-    //private int indexSuspicious = 0;
+    [SerializeField] private List<Transform> patrolWayPoints;
     //--------------------------------------------------------------------
 
-    public Transform tr;
+    //--------------------------------------------------------------------
+    [SerializeField] private List<Transform> allWayPoints;
+    [SerializeField] private int suspiciousWayPointsNumber;
+    //--------------------------------------------------------------------
+
+    private Transform tr;
     private State _state;
 
 
     public NavMeshAgent NavMeshAgent => agent;
+    public Transform Player => player;
+    public Transform Tr => tr;
+    public float RaycastHeight => raycastHeight;
+    public float AngleThreshold => angleThreshold;
+    public List<Transform> PatrolWayPoints => patrolWayPoints;
+    public List<Transform> AllWayPoints => allWayPoints;
+    public int SuspiciousWayPointsNumber => suspiciousWayPointsNumber;
 
 
     private void Start()
@@ -50,7 +54,7 @@ public class Enemy : MonoBehaviour
         this._state.Think();
         this._state.Act();
 
-        //Debug.Log(_state);
+        Debug.Log(_state);
     }
 
     public void SetState(State state)

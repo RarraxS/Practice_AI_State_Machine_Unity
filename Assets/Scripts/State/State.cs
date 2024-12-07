@@ -62,8 +62,9 @@ public abstract class State
 
     private void Watch()
     {
-        Vector3 start = _enemy.tr.position + new Vector3(0, _enemy.raycastHeight, 0);
-        Vector3 end = _enemy.player.position + new Vector3(0, _enemy.raycastHeight, 0);
+        Debug.Log(_enemy.RaycastHeight);
+        Vector3 start = _enemy.Tr.position + new Vector3(0, _enemy.RaycastHeight, 0);
+        Vector3 end = _enemy.Player.position + new Vector3(0, _enemy.RaycastHeight, 0);
 
         Vector3 direction = (end - start);
 
@@ -74,12 +75,12 @@ public abstract class State
         Debug.DrawRay(start, localForward, Color.black);
 
 
-        float angle = CalculateAngle(_enemy.tr.forward, direction);
+        float angle = CalculateAngle(_enemy.Tr.forward, direction);
 
 
         //Debug.Log("Collided obj: " + hit.collider.name + ",player name: " + _enemy.player.name);
 
-        if ((angle < _enemy.angleThreshold) && (hit.collider.name == _enemy.player.name))
+        if ((angle < _enemy.AngleThreshold) && (hit.collider.name == _enemy.Player.name))
         {
             //Debug.Log("Angulo: " + angle + " angulo limite: " + _enemy.angleThreshold);
             _canSeePlayer = true;
@@ -101,7 +102,7 @@ public abstract class State
 
     protected int NextWayPoint(List<Transform> _transform, int index)
     {
-        Debug.Log(HasReachedDestination());
+        //Debug.Log(HasReachedDestination());
         if (//AreFloatsApproximatelyEqual(_enemy.tr.position.x, _transform[index].position.x) &&
             //AreFloatsApproximatelyEqual(_enemy.tr.position.z, _transform[index].position.z) &&
             HasReachedDestination())

@@ -22,6 +22,6 @@ public class FollowPlayerState : State
 
     public override void Act()
     {
-        Move(_enemy.player);
+        Move(_enemy.Player);
     }
 }
