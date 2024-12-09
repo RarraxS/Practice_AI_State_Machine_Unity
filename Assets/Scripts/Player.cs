@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         Vector3 direction = MovementVector();
-        tr.position += direction * speed;
+        tr.position += direction * speed * Time.deltaTime;
         tr.rotation = Quaternion.Euler(0, Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg, 0);
     }
 
